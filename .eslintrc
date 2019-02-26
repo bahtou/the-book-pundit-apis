@@ -68,7 +68,7 @@
     "no-caller": 2,
     "no-catch-shadow": 2,
     "no-confusing-arrow": 1,
-    "no-console": [2, { "allow": ["log", "warn", "error"] }],
+    "no-console": [0, { "allow": ["log", "warn", "error"] }],
     "no-constant-condition": 1,
     "no-eval": 2,
     "no-extend-native": 2,

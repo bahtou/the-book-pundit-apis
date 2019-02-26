@@ -8,6 +8,7 @@ const config = {
   serviceAPI: process.env.SERVICE_API,
 
   gr: {
+    url: 'https://www.goodreads.com',
     key: process.env.GOODREADS_KEY
   },
 

@@ -1,29 +1,25 @@
 const KoaRouter = require('koa-router');
 
-const validateBookId = require('./validator');
-const handleRequest = require('./handleRequest');
+const { validateBookId } = require('./validator');
 const fetchBookReviews = require('./fetchBookReviews');
-const fetchSrcReviews = require('./fetchSrcReviews');
+const fetchIframeSrcReviews = require('./fetchIframeSrcReviews');
 const fetchFullReviews = require('./fetchFullReviews');
 const parseIframe = require('./parseIframe');
-const parseSrcReviews = require('./parseSrcReviews');
+const parsePartialReviews = require('./parsePartialReviews');
 const parseFullReviews = require('./parseFullReviews');
-const { handleResponse } = _require('apiResponse');
 
 
 const Router = new KoaRouter();
 
 Router
   .param('bookId', validateBookId)
-  .get('/',
-    handleRequest,
+  .get('/books/:bookId/reviews',
     fetchBookReviews, //returns XML that has iFrame
     parseIframe,
-    fetchSrcReviews,  //returns HTML with partial reviews
-    parseSrcReviews,
+    fetchIframeSrcReviews,  //returns HTML with partial reviews
+    parsePartialReviews,
     fetchFullReviews,	//returns HTML with full reviews
-    parseFullReviews,
-    handleResponse
+    parseFullReviews
   );
 
 

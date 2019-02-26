@@ -23,12 +23,27 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "fast-xml-parser": "^3.12.13",
     "htmlparser2": "^3.10.1",
     "ip": "^1.1.5",
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
     "os": "^0.1.1",
+    "superagent": "^4.1.0",
     "uuid": "^3.3.2"
+  },
+  "nodemonConfig": {
+    "ext": "*",
+    "ignore": [
+      "node_modules/*"
+    ],
+    "verbose": true,
+    "legacy-watch": true,
+    "watch": [
+      "./src",
+      "./bin",
+      "package.json"
+    ]
   }
 }

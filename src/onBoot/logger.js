@@ -99,22 +99,25 @@ function createLogMethod(method) {
       return process.stdout.write(toStdOut);
     }
 
-    const log = {
+    let log = {
       level: method.toUpperCase(),
       component,
       message,
       data,
       time: new Date().toISOString(),
-      ...infraLog,
-      stackTrace: stack.join('\n   ')
+      ...infraLog
     };
+
+    if (method === 'error') {
+      log = { ...log, stackTrace: stack.join('\n   ') };
+    }
 
     const { bgColor, fontColor, reset } = logColors[method];
     const toWrite = util.inspect(log, utilsConfig);
     const toStdOut = `${bgColor}${fontColor}${toWrite}${reset}\n\n`;
     return process.stdout.write(toStdOut);
 
-  }
+  };
 }
 
 function spit(options) {
@@ -129,7 +132,7 @@ function spit(options) {
   consoleProxy(obj);
 
   return obj;
-};
+}
 
 module.exports = function() {
   global.logger = spit();
