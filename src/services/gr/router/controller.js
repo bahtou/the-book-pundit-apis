@@ -1,6 +1,5 @@
 const handleInitialRequest = async (ctx, next) => {
-  const { method, headers, ip, ips, path, querystring, origin, hostname } = ctx;
-  const { reqId } = ctx.state;
+  const { reqId, method, headers, ip, ips, path, querystring, origin, hostname } = ctx;
 
   let entryPoint = {
     xForwardedFor: headers['x-forwarded-for'],

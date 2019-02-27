@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  the-book-pundit-apis:
+    working_dir: /opt/app
+    image: the-book-pundit-gr-apis
+    container_name: gr-apis
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/www
+    ports:
+      - 3001:3001
+      - 9230:9230
+    environment:
+      - NODE_ENV=local
+      - NODE_PORT=3001
+      - SERVICE_API=gr
+      - GOODREADS_KEY=<enter-your-key>
+    volumes:
+      - ./package.json:/opt/app/package.json
+      - ./package-lock.json:/opt/app/package-lock.json
+      - type: bind
+        source: ./bin
+        target: /opt/app/bin
+        consistency: "delegated" # Docker Desktop for Mac: The container runtime’s view of the mount is authoritative. There may be delays before updates made in a container are visible on the host
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./src
+        target: /opt/app/src
+        consistency: "delegated" # Docker Desktop for Mac: The container runtime’s view of the mount is authoritative. There may be delays before updates made in a container are visible on the host
+        volume:
+          nocopy: true
+      - type: volume
+        source: notused
+        target: /opt/app/node_modules
+    networks:
+      - api_net
+
+networks:
+  api_net:
+    external: true
+
+volumes:
+  notused:

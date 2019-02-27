@@ -4,20 +4,27 @@ const xmlParser = _require('utils/xmlParser');
 
 async function parseIframe(ctx, next) {
   const { reqId, state } = ctx;
-  const { reviewXML } = state;
+  const { bookId, reviewXML } = state;
   let parsedXMLresults = {};
+  let reviewsCount = '';
   let reviewsWidget = '';
   let iframeSrc = '';
 
-  logger.info('entry', { reqId });
+  logger.info({ reqId });
 
   parsedXMLresults = await xmlParser(reviewXML);
+  reviewsCount = parsedXMLresults.GoodreadsResponse.book.work.text_reviews_count;
   reviewsWidget = parsedXMLresults.GoodreadsResponse.book.reviews_widget;
+
+  if (reviewsCount === 0) {
+    logger.info('--no reviews', { reqId, bookId });
+    return ctx.body = [];
+  }
 
   iframeSrc = await extractIframeSrc(reviewsWidget);
 
   ctx.state = { ...state, iframeSrc };
-  logger.info('src', { reqId, iframeSrc });
+  logger.info({ reqId, iframeSrc });
 
   return next();
 }

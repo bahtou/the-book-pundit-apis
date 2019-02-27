@@ -1,14 +1,19 @@
 const extractReviewHREFs = _require('utils/extractReviewHREFs');
 
 
-async function parseIframe(ctx, next) {
+async function parsePartialReview(ctx, next) {
   const { reqId, state } = ctx;
-  const { reviewsHTML } = state;
+  const { bookId, reviewsHTML } = state;
   let reviewLinks = [];
 
-  logger.info('entry', { reqId });
+  logger.info({ reqId });
 
   reviewLinks = await extractReviewHREFs(reviewsHTML);
+
+  if (reviewLinks.length === 0) {
+    logger.info('--no reviews', { reqId, bookId });
+    return ctx.body = [];
+  }
 
   ctx.state = { ...state, reviewLinks };
   logger.info('reviewLinks', { reqId, reviewLinks });
@@ -16,4 +21,4 @@ async function parseIframe(ctx, next) {
   return next();
 }
 
-module.exports = parseIframe;
+module.exports = parsePartialReview;

@@ -1,6 +1,5 @@
 const { getIframeSrcReviewsResponse } = require('./mocks');
 const superagent = require('superagent');
-const { gr } = _require('config');
 
 
 async function getIframeSrcReviews({ reqId, iframeSrc }) {
@@ -12,10 +11,10 @@ async function getIframeSrcReviews({ reqId, iframeSrc }) {
   logger.info({ reqId, url });
   startTime = new Date().getTime();
   try {
-    response.text = await getIframeSrcReviewsResponse();
-    // response = await superagent
-    //   .get(url)
-    //   .set('user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:65.0) Gecko/20100101 Firefox/65.0');
+    // response.text = await getIframeSrcReviewsResponse();
+    response = await superagent
+      .get(url)
+      .set('user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:65.0) Gecko/20100101 Firefox/65.0');
     totalTime = new Date().getTime() - startTime;
   } catch (err) {
     totalTime = new Date().getTime() - startTime;

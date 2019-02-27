@@ -15,11 +15,11 @@ async function getBookReviews({ reqId, bookId }) {
   logger.info({ reqId, url, query });
   startTime = new Date().getTime();
   try {
-    response.text = await getBookReviewResponse();
-    // response = await superagent
-    //   .get(url)
-    //   .set('user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:65.0) Gecko/20100101 Firefox/65.0')
-    //   .buffer().type('xml').query(query);
+    // response.text = await getBookReviewResponse();
+    response = await superagent
+      .get(url)
+      .set('user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:65.0) Gecko/20100101 Firefox/65.0')
+      .buffer().type('xml').query(query);
     totalTime = new Date().getTime() - startTime;
   } catch (err) {
     totalTime = new Date().getTime() - startTime;

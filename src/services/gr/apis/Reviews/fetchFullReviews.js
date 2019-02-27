@@ -12,9 +12,9 @@ async function fetchFullReviews(ctx, next) {
   logger.info({ reqId, reviewLinks });
 
   try {
-    reviews = await getFullReviewResponse();
-    // reviewPromises = reviewLinks.map(reviewURL => grEndpoints('GET_FULL_REVIEW', { reqId, reviewURL }));
-    // reviews = await Promise.all(reviewPromises);
+    // reviews = await getFullReviewResponse();
+    reviewPromises = reviewLinks.map(reviewURL => grEndpoints('GET_FULL_REVIEW', { reqId, reviewURL }));
+    reviews = await Promise.all(reviewPromises);
   } catch (error) {
     console.log('something went wrong: fetchBookReviews');
     return 'oops';

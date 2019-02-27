@@ -11,14 +11,14 @@ async function fetchIframeSrcReviews(ctx, next) {
   let reviewsHTML;
   try {
     reviewsHTML = await grEndpoints('GET_IFRAME_SRC_REVIEWS', { reqId, iframeSrc });
-  } catch (error) {
+  } catch (err) {
     console.log('something went wrong: fetchIframeSrcReviews');
-    return 'oops';
+    return `iframeSrcReviews ${err}`;
     // return apiHandleError(ctx, InternalError);
   }
 
   ctx.state = { ...state, reviewsHTML };
-  logger.info('exit', { reqId });
+  logger.info('exit', { reqId, reviewsHTML: !!reviewsHTML });
 
   return next();
 }

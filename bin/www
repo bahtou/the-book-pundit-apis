@@ -5,24 +5,28 @@ global._require = name => require(`${srcPath}/${name}`);
 
 let app;
 let httpServer;
+let config;
 
 async function startServer() {
   const http = require('http');
 
   try {
     // move to lib
-    await require(`${srcPath}/config`);
+    config = await require(`${srcPath}/config`);
     await require(`${srcPath}/onBoot/logger`)();
   } catch (err) {
     console.error('unable to initialize\n', err);
     return process.exit(1);
   }
 
+  logger.warn('Node Configuration', { config });
+
+  const { port } = config;
   app = require(`${srcPath}/app`);
   httpServer =
     http.createServer(app.callback())
-      .listen(3000, () => {
-        logger.warn(`HTTP server: listening on port 3000`);
+      .listen(port, () => {
+        logger.warn(`HTTP server: listening on port ${port}`);
       });
 
   httpServer.timeout = 1800000;

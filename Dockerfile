@@ -19,14 +19,14 @@ RUN npm install --no-progress --loglevel error && npm cache clean --force
 # --- Release ----
 FROM base as release
 
+ARG SERVICE_API=gr
+ENV SERVICE_API $SERVICE_API
+
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-ARG PORT=3000
+ARG PORT=3001
 ENV PORT $PORT
-
-ARG SERVICE_API=gr
-ENV SERVICE_API $SERVICE_API
 
 EXPOSE $PORT
 

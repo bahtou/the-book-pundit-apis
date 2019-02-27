@@ -22,7 +22,7 @@ async function parseBookIds(ctx, next) {
     bookReturns.push({
       publicationYear: original_publication_year,
       rating: average_rating,
-      id,
+      book_id: id,
       title,
       author,
       imageURL: image_url
