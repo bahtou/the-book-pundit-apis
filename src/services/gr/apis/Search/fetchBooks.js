@@ -6,7 +6,7 @@ async function fetchBooks(ctx, next) {
   const { reqId, state } = ctx;
   const { term } = state;
 
-  logger.info('entry', { reqId, ...state });
+  logger.info({ reqId, ...state });
 
   let responseXML;
   try {
@@ -18,7 +18,7 @@ async function fetchBooks(ctx, next) {
   }
 
   ctx.state = { ...state, searchResults: responseXML };
-  logger.info('exit', { reqId });
+  logger.info({ reqId });
 
   return next();
 }

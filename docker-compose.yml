@@ -3,8 +3,8 @@ version: "3.7"
 services:
   the-book-pundit-apis:
     working_dir: /opt/app
-    image: the-book-pundit-gr-apis
-    container_name: gr-apis
+    image: the-book-pundit-apis-gr
+    container_name: apis-gr
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,7 +16,7 @@ services:
       - NODE_ENV=local
       - NODE_PORT=3001
       - SERVICE_API=gr
-      - GOODREADS_KEY=<enter-your-key>
+      - GOODREADS_KEY=st2TmgtgiCLegslyXYWA
     volumes:
       - ./package.json:/opt/app/package.json
       - ./package-lock.json:/opt/app/package-lock.json
@@ -36,10 +36,10 @@ services:
         source: notused
         target: /opt/app/node_modules
     networks:
-      - api_net
+      - the-book-pundit-service_db_net
 
 networks:
-  api_net:
+  the-book-pundit-service_db_net:
     external: true
 
 volumes:

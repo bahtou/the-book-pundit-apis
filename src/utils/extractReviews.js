@@ -1,5 +1,4 @@
-const htmlparser = require('htmlparser2');
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
 
 
 async function extractReviews(data) {
@@ -13,10 +12,13 @@ async function extractReviews(data) {
       decodeEntities: true
     });
 
-    punditInfo.by = $('h1 a').text();
+    const reviewerRegEx = /\s*Reviews/gi;
+    punditInfo.reviewer = $('h1 a').text().replace(reviewerRegEx, '');
     punditInfo.rating = $('.rating span').attr('title');
 
-    $('a').attr('href', '#'); // need to style { text-decoration: none; color: black; cursor: unset; }
+    $('a').attr('href', '#').css({ 'text-decoration': 'none', 'color': 'black', 'cursor': 'unset' });
+    $('img').remove();
+    $('.reviewer').remove();
     $('.leftAlignedImage').remove();
     $('#review-like').remove();
     $('#review-follow').remove();

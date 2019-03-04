@@ -8,7 +8,7 @@ async function parseBookIds(ctx, next) {
   let books = [];
   let bookReturns = [];
 
-  logger.info('entry', { reqId });
+  logger.info({ reqId });
 
   parsedResults = await xmlParser(searchResults);
   books = parsedResults.GoodreadsResponse.search.results.work;
@@ -16,7 +16,7 @@ async function parseBookIds(ctx, next) {
   const len = books.length;
   let i = 0;
   for (; i<len; i++) {
-    const { original_publication_year, average_rating, best_book } = books[i];
+    const { original_publication_year, average_rating, text_reviews_count, best_book } = books[i];
     const { id, title, author, image_url } = best_book;
 
     bookReturns.push({
@@ -25,11 +25,12 @@ async function parseBookIds(ctx, next) {
       book_id: id,
       title,
       author,
-      imageURL: image_url
+      imageURL: image_url,
+      numOfReviews: text_reviews_count
     });
   }
 
-  logger.info('exit', { reqId, bookReturnsLEN: bookReturns.length });
+  logger.info({ reqId, bookReturnsLEN: bookReturns.length });
   ctx.state = { ...state, bookReturns };
 
   return next();

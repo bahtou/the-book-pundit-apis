@@ -4,7 +4,6 @@ const config = {
   host: process.env.NODE_HOST,
   port: process.env.NODE_PORT,
 
-  root: process.env.PWD,
   serviceAPI: process.env.SERVICE_API,
 
   gr: {
