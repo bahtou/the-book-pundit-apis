@@ -13,7 +13,7 @@ services:
       - GOODREADS_KEY=st2TmgtgiCLegslyXYWA
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 5
       update_config:
         parallelism: 1
       restart_policy:

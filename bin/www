@@ -4,8 +4,6 @@ const root = path.resolve(__dirname, '..');
 const srcPath = `${root}/src`;
 global._require = name => require(`${srcPath}/${name}`);
 
-console.log(root);
-console.log(srcPath);
 
 let app;
 let httpServer;

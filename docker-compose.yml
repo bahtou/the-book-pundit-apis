@@ -36,10 +36,10 @@ services:
         source: notused
         target: /opt/app/node_modules
     networks:
-      - the-book-pundit-service_db_net
+      - the-book-pundit-service_api_net
 
 networks:
-  the-book-pundit-service_db_net:
+  the-book-pundit-service_api_net:
     external: true
 
 volumes:
