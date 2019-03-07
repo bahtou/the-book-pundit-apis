@@ -11,6 +11,13 @@ async function parseBookIds(ctx, next) {
   logger.info({ reqId });
 
   parsedResults = await xmlParser(searchResults);
+
+  if (!parsedResults.GoodreadsResponse.search.results.work) {
+    logger.warn('--no books found', { reqId });
+    ctx.state = { ...state, bookReturns: [] };
+    return next();
+  }
+
   books = parsedResults.GoodreadsResponse.search.results.work;
 
   const len = books.length;
