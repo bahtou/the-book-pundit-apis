@@ -3,7 +3,9 @@ APIs that support The Book Pundit application.
 
 In order to run the full application [The Book Pundit Service](https://github.com/bahtou/the-book-pundit-service) must also be running.
 
-## Run
+## Build & Run
+
+`docker-compose build`
 
 `docker-compose up -d`
 

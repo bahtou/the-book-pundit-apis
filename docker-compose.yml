@@ -5,6 +5,11 @@ services:
     working_dir: /opt/app
     image: the-book-pundit-apis-gr
     container_name: apis-gr
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 0.0.0.0:24224
+        tag: docker.apis
     build:
       context: .
       dockerfile: Dockerfile
@@ -37,9 +42,12 @@ services:
         target: /opt/app/node_modules
     networks:
       - the-book-pundit-service_api_net
+      - the-book-pundit-service_monitor
 
 networks:
   the-book-pundit-service_api_net:
+    external: true
+  the-book-pundit-service_monitor:
     external: true
 
 volumes:
